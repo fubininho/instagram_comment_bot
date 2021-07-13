@@ -10,10 +10,10 @@ def instagram_comment_bot(username, password, post_link):
 
    number_comments = input("Escreva o número de comentários que você quer fazer:\n")
    comments = []
-   for i in range(number_comments):
+   for i in range(int(number_comments)):
       comments.append(input("Escreva um comentário:\n"))
       
-   number_combinations = input("Caso você queira que em um mesmo comentário haja uma combinação dos textos que você escreveu anteriormente, digite o número de combinações:\n")
+   number_combinations = input("Caso você queira que em um mesmo comentário haja uma combinação dos textos que você escreveu anteriormente, digite o número de combinações (digite 0 para caso queira um comentário único):\n")
 
    print("Avisos:")
    sleep(2)
@@ -67,8 +67,9 @@ def instagram_comment_bot(username, password, post_link):
       commentArea = browser.find_element_by_class_name('Ypffh')
       index = random.randint(3,30)%len(comments)
       comment = comments[index]
-      for i in range(number_combinations):
-         comment = comment + " " +comments[index+i]
+      if i != 0:
+         for i in range(1,int(number_combinations)):
+            comment = comment + " " +comments[(index+i)%len(comments)]
       commentArea.send_keys(comment)
       sleep(1)
       # commentArea.send_keys(Keys.ENTER)
